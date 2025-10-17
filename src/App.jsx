@@ -27,6 +27,11 @@ function App() {
       contatos: [{ nome: "Welder", numero: "5585992664889" }],
       mensagem: "Olá, gostaria de falar com o(a) morador(a) do Kitnet 08.",
     },
+    {
+      nome: "Kitnet 14",
+      contatos: [{ nome: "Jeverson", numero: "5585997114612" }],
+      mensagem: "Olá, gostaria de falar com o(a) morador(a) do Kitnet 08.",
+    },
   ];
 
   return (
