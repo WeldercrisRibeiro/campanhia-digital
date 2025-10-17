@@ -1,41 +1,38 @@
 import React, { useState } from "react";
+import logoImg from "./assets/logo-welder.png";
 
 function App() {
   const [mostrarApartamentos, setMostrarApartamentos] = useState(false);
   const [mostrarKitnets, setMostrarKitnets] = useState(false);
 
   const apartamentos = [
-    { 
-      nome: "Apto 101", 
-      numeros: ["55992664889", "55999999999"],
-      mensagem: "Olá, gostaria de falar com o(a) morador(a) do Apto 101." 
-    },
-    { 
-      nome: "Apto 102", 
-      numeros: ["5598888888888", "5597777777777"] 
-    },
-    { 
-      nome: "Apto 103", 
-      numeros: ["5597777777777"] 
+    {
+      nome: "Apto 101",
+      contatos: [
+        { nome: "Welder Teste", numero: "5585992664889" },
+        { nome: "Weldercris Teste", numero: "5585992664889" },
+      ],
+      mensagem: "Olá, gostaria de falar com o(a) morador(a) do Apto 101.",
     },
   ];
 
   const kitnets = [
     {
-      nome: "Kitnet 01",
-      numeros: ["55999999999"]
+      nome: "Kitnet 07",
+      contatos: [{ nome: "Abraão", numero: "5585985065358" }],
+      mensagem: "Olá, gostaria de falar com o(a) morador(a) do Kitnet 07.",
     },
     {
-      nome: "Kitnet 02",
-      numeros: ["55988888888"]
-    }
+      nome: "Kitnet 08",
+      contatos: [{ nome: "Welder", numero: "5585992664889" }],
+      mensagem: "Olá, gostaria de falar com o(a) morador(a) do Kitnet 08.",
+    },
   ];
 
   return (
     <div style={styles.container}>
       <div style={styles.logoContainer}>
-        {/* Substitua o texto abaixo pela sua imagem de logo */}
-        <div style={styles.logo}>LOGO</div>
+        <img src={logoImg} alt="Logo Campainha Digital" style={styles.logo} />
       </div>
       <h1 style={styles.titulo}>Campainha Digital</h1>
       <p style={styles.subtitulo}>Selecione o tipo de imóvel:</p>
@@ -43,28 +40,35 @@ function App() {
       <div style={styles.botoes}>
         {/* Seção de Apartamentos */}
         <div style={styles.secao}>
-          <button 
+          <button
             onClick={() => setMostrarApartamentos(!mostrarApartamentos)}
             style={styles.secaoTitulo}
+            className="secao-titulo"
           >
-            Apartamentos {mostrarApartamentos ? '▼' : '▼'}
+            Apartamentos {mostrarApartamentos ? "▼" : "▶"}
           </button>
-          
+
           {mostrarApartamentos && (
             <div style={styles.conteudoSecao}>
               {apartamentos.map((apto) => (
                 <div key={apto.nome} style={styles.aptoContainer}>
                   <span style={styles.aptoLabel}>{apto.nome}</span>
                   <div style={styles.contatosContainer}>
-                    {apto.numeros.map((numero, index) => (
+                    {apto.contatos.map((contato) => (
                       <a
-                        key={numero}
-                        href={`https://wa.me/${numero}`}
+                        key={contato.numero}
+                        href={`https://wa.me/${
+                          contato.numero
+                        }?text=${encodeURIComponent(
+                          apto.mensagem ||
+                            "Olá, gostaria de falar com o(a) morador(a)."
+                        )}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={styles.botao}
+                        className="contato-botao"
                       >
-                        Contato {index + 1}
+                        {contato.nome}
                       </a>
                     ))}
                   </div>
@@ -76,28 +80,35 @@ function App() {
 
         {/* Seção de Kitnets */}
         <div style={styles.secao}>
-          <button 
+          <button
             onClick={() => setMostrarKitnets(!mostrarKitnets)}
             style={styles.secaoTitulo}
+            className="secao-titulo"
           >
-            Kitnets {mostrarKitnets ? '▼' : '▼'}
+            Kitnets {mostrarKitnets ? "▼" : "▶"}
           </button>
-          
+
           {mostrarKitnets && (
             <div style={styles.conteudoSecao}>
               {kitnets.map((kitnet) => (
                 <div key={kitnet.nome} style={styles.aptoContainer}>
                   <span style={styles.aptoLabel}>{kitnet.nome}</span>
                   <div style={styles.contatosContainer}>
-                    {kitnet.numeros.map((numero, index) => (
+                    {kitnet.contatos.map((contato) => (
                       <a
-                        key={numero}
-                        href={`https://wa.me/${numero}`}
+                        key={contato.numero}
+                        href={`https://wa.me/${
+                          contato.numero
+                        }?text=${encodeURIComponent(
+                          kitnet.mensagem ||
+                            "Olá, gostaria de falar com o(a) morador(a)."
+                        )}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={styles.botao}
+                        className="contato-botao"
                       >
-                        Contato {index + 1}
+                        {contato.nome}
                       </a>
                     ))}
                   </div>
@@ -108,7 +119,8 @@ function App() {
         </div>
       </div>
       <footer style={styles.footer}>
-        © {new Date().getFullYear()} Weldercris Ribeiro. Todos os direitos reservados.
+        © {new Date().getFullYear()} Weldercris Ribeiro. Todos os direitos
+        reservados.
       </footer>
     </div>
   );
@@ -122,16 +134,10 @@ const styles = {
     marginBottom: "2rem",
   },
   logo: {
-    width: "120px",
-    height: "120px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "1.2rem",
-    fontWeight: "bold",
-    color: "#666",
-    border: "2px dashed #999",
-    borderRadius: "10px",
+    width: "150px",
+    height: "auto",
+    maxWidth: "100%",
+    objectFit: "contain",
   },
   container: {
     fontFamily: "sans-serif",
@@ -142,17 +148,17 @@ const styles = {
     paddingTop: "4rem",
     boxSizing: "border-box",
   },
-  titulo: { 
-    fontSize: "2.5rem", 
-    marginBottom: "1rem", 
+  titulo: {
+    fontSize: "2.5rem",
+    marginBottom: "1rem",
     color: "black",
-    padding: "0 1rem"
+    padding: "0 1rem",
   },
-  subtitulo: { 
-    color: "#000000ff", 
+  subtitulo: {
+    color: "#000000ff",
     marginBottom: "2rem",
     fontSize: "1.2rem",
-    padding: "0 1rem" 
+    padding: "0 1rem",
   },
   botoes: {
     display: "flex",
@@ -171,7 +177,7 @@ const styles = {
     padding: "1rem",
     fontSize: "1.3rem",
     fontWeight: "bold",
-    backgroundColor: "#4A4A4A",
+    backgroundColor: "#da641f",
     color: "white",
     border: "none",
     borderRadius: "8px",
@@ -180,6 +186,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     gap: "0.5rem",
+    transition: "background-color 0.2s",
   },
   conteudoSecao: {
     display: "flex",
@@ -208,18 +215,19 @@ const styles = {
     alignItems: "center",
   },
   botao: {
-    background: "#25d366",
+    background: "#1a2217ff",
     color: "white",
     padding: "1rem",
     borderRadius: "8px",
     textDecoration: "none",
     fontWeight: "bold",
-    transition: "0.2s",
+    transition: "all 0.2s ease",
     fontSize: "1.2rem",
     width: "90%",
     maxWidth: "300px",
     margin: "0 auto",
     display: "block",
+    boxShadow: "0 2px 4px rgba(121, 11, 11, 0.1)",
   },
   footer: {
     marginTop: "4rem",
