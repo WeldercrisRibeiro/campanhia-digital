@@ -40,7 +40,7 @@ function App() {
         <img src={logoImg} alt="Logo Campainha Digital" style={styles.logo} />
       </div>
       <h1 style={styles.titulo}>Campainha Digital</h1>
-      <p style={styles.subtitulo}>Selecione o tipo de imóvel:</p>
+      <p style={styles.subtitulo}>Deseja falar com alguém? Selecione o tipo de imóvel e a numeração:</p>
 
       <div style={styles.botoes}>
         {/* Seção de Apartamentos */}
